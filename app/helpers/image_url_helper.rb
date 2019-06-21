@@ -1,0 +1,2 @@
+module ImageUrlHelper
+end
