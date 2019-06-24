@@ -8,10 +8,11 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
   end
 
 
-  test 'has a create link on home page' do
+  test 'The landing page links to the image link submission form' do
     get root_path
     assert_response :success
     assert_select 'a', 'Create'
+    assert_select 'a[href=?]', new_image_path
   end
 
 
