@@ -4,8 +4,6 @@ class ImagesController < ApplicationController
   def create
 
     # require 'pry'; binding.pry
-    puts "Hello"
-    puts params[:url]
     @image = Image.new(url: params[:image][:url] )
     @image.save
     redirect_to @image
