@@ -1,12 +1,12 @@
 <h1>Add an Image URL</h1>
 
 <%= form_with scope: :image,  url: images_path, local: true do |form| %>
-    <p>
-      <%= form.label :url %><br>
+    <div class="form-group">
+      <%= form.label :url %>
       <%= form.text_field :url %>
-    </p>
-
-    <p>
-      <%= form.submit %>
-    </p>
+    </div>
+    <%= form.submit %>
 <% end %>
+
+
+
