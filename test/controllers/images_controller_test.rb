@@ -62,4 +62,18 @@ failure" do
     # require 'pry'; binding.pry
     assert_select 'img[class=?]', 'image-display', count: Image.count
   end
+
+  test 'Newest images appear first' do
+    first = 'https://foo.bar/x.jpg'
+    second = 'https://foo.bar/y.png'
+    Image.create!(url: first)
+    Image.create!(url: second)
+
+    get root_path
+    assert_select 'img' do |images|
+      # require 'pry'; binding.pry
+      assert_equal images[0].attributes['src'].value, second
+      assert_equal images[1].attributes['src'].value, first
+    end
+  end
 end
