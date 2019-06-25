@@ -53,4 +53,13 @@ failure" do
     follow_redirect!
     assert_select 'div', "Saved image with url #{good_url}"
   end
+
+  test 'newly added images show up on the home page' do
+    good_url = 'https://learn.appfolio.com/apm/assets/benefits_sprite.png'
+    post images_path, params: { image: { url: good_url } }
+    get root_path
+    assert_select 'img[src=?]', good_url
+    # require 'pry'; binding.pry
+    assert_select 'img[class=?]', 'image-display', count: Image.count
+  end
 end
