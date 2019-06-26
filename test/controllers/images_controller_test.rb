@@ -54,6 +54,13 @@ failure" do
     assert_select 'div', "Saved image with url #{good_url}"
   end
 
+  test 'The landing (home) page links to the image link submission form' do
+    get root_path
+    assert_response :success
+    assert_select 'a', 'New Image'
+    assert_select 'a[href=?]', new_image_path
+  end
+
   test 'newly added images show up on the home page' do
     good_url = 'https://learn.appfolio.com/apm/assets/benefits_sprite.png'
     post images_path, params: { image: { url: good_url } }
