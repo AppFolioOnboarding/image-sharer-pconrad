@@ -59,7 +59,6 @@ failure" do
     post images_path, params: { image: { url: good_url } }
     get root_path
     assert_select 'img[src=?]', good_url
-    # require 'pry'; binding.pry
     assert_select 'img[class=?]', 'image-display', count: Image.count
   end
 
