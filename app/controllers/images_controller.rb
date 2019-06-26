@@ -18,6 +18,10 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
   end
 
+  def index
+    @images = Image.order(created_at: :desc).all
+  end
+
   private
 
   def save_error(bad_url)
