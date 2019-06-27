@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+
+
+div.container
+{
+  display: block;
+  text-align: center;
+}
+
+div.form
+ {
+   display: inline-block;
+   margin-left: auto;
+   margin-right: auto;
+   text-align: center;
+ }
+
+div.field-list
+{
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: right;
+}
+
+div.submit
+{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
