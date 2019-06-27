@@ -33,7 +33,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "scripts": {
-    "lint": "eslint app/javascript",
-    "test": "mocha --recursive --compilers js:babel-register --require app/javascript/testHelpers.js --require ignore-styles app/javascript/**/test"
+    "lint": "eslint --fix app/javascript",
+    "test": "mocha --watch --recursive --compilers js:babel-register --require app/javascript/testHelpers.js --require ignore-styles app/javascript/**/test"
   }
 }

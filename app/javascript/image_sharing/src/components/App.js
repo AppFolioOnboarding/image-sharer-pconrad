@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import Header from './Header';
-import Footer from "./Footer";
 
 class App extends Component {
   /* Add Prop Types check*/
   render() {
     return (
       <div>
-        <Header title={'Tell us what you think'} />
+        <Header title="Tell us what you think" />
         /* Put your components here: Flash Message, Form, Footer */
+        <footer style={{ 'fontSize': '10px', 'textAlign': 'center' }}>Copyright: AppFolio Inc. Onboarding</footer>
       </div>
-    )
+    );
   }
 }
 
-export default inject(
-  'stores'
-)(App);
+export default inject('stores')(App);
