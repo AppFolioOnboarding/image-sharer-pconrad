@@ -11,20 +11,25 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_create__success
     sample_url = 'https://foo.bar/xyz.gif'
-    sample_tag_list = 'foo,bar,fum'
+    sample_tag_list = %w[foo bar fum]
+    sample_tag_list_string = sample_tag_list.join(',')
     assert_difference 'Image.count' do
       post images_path, params: {
         image: {
           url: sample_url,
-          tag_list: sample_tag_list
+          tag_list: sample_tag_list_string
         }
       }
     end
     assert_response :redirect
     image = Image.last
     assert_redirected_to image_path(image)
+    follow_redirect!
     assert_equal sample_url, image.url
-    assert_equal sample_tag_list.split(','), image.tag_list
+    assert_equal sample_tag_list, image.tag_list
+    sample_tag_list.each do |t|
+      assert_select 'span', t
+    end
   end
 
   def test_create__invalid_url
