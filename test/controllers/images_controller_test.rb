@@ -1,18 +1,52 @@
 require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
-  test 'The link is entered through a form' do
+  def test_new
     get new_image_path
     assert_response :success
     assert_select 'form'
     assert_select "input[name='image[url]']"
+    assert_select "input[name='image[tag_list]'][data-role='tagsinput']"
   end
 
-  test 'posting a valid link works' do
+  def test_create__success
     sample_url = 'https://foo.bar/xyz.gif'
-    post images_path, params: { image: { url: sample_url } }
+    sample_tag_list = %w[foo bar fum]
+    sample_tag_list_string = sample_tag_list.join(',')
+    assert_difference 'Image.count' do
+      post images_path, params: {
+        image: {
+          url: sample_url,
+          tag_list: sample_tag_list_string
+        }
+      }
+    end
     assert_response :redirect
-    assert_redirected_to image_path(Image.last)
+    image = Image.last
+    assert_redirected_to image_path(image)
+    follow_redirect!
+    assert_equal sample_url, image.url
+    assert_equal sample_tag_list, image.tag_list
+    sample_tag_list.each do |t|
+      assert_select 'span', t
+    end
+  end
+
+  def test_create__invalid_url
+    bad_url = 'This is a bad url'
+    tags = 'foo,bar,fum'
+    assert_no_difference 'Image.count' do
+      post images_path, params: {
+        image: {
+          url: bad_url,
+          tag_list: tags
+        }
+      }
+    end
+    assert_select 'div.alert-warning', "ERROR: saving #{bad_url}: Url not a valid image url"
+    assert_select "input[name='image[url]'][value=?]", bad_url
+    space_separated_tags = tags.gsub(',', ', ')
+    assert_select "input[name='image[tag_list]'][value=?]", space_separated_tags
   end
 
   test 'After the form is saved the link is peristed in the database' do
@@ -29,13 +63,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select 'img'
     assert_select 'img[src=?]', sample_url
-  end
-
-  test 'I cannot successfully save an image with an invalid URL' do
-    count_before = Image.count
-    bad_url = 'foo bar fum'
-    post images_path, params: { image: { url: bad_url } }
-    assert_equal count_before, Image.count
   end
 
   test "An error message is associated with the appropriate input field on

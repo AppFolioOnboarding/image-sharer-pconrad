@@ -1,0 +1,8 @@
+<p><code><%= image.url %></code></p>
+<p><img src="<%= image.url =%>" alt="image number <%= image.id =%>" class="image-display"></p>
+<p>
+    <% image.tag_list.each do |t|  %>
+      <span class="badge badge-primary"><%= t %></span>
+    <% end %>
+</p>
+

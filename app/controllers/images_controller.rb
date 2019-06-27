@@ -1,9 +1,11 @@
 class ImagesController < ApplicationController
-  def new; end
+  def new
+    @image = Image.new
+  end
 
   def create
+    @image = Image.new(params.require(:image).permit(:url, :tag_list))
     new_url = params[:image][:url]
-    @image = Image.new(url: new_url)
 
     if @image.valid?
       @image.save
