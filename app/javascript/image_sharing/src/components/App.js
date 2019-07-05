@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import Header from './Header';
 
-import {observable, action} from 'mobx'
-import {observer, Provider} from 'mobx-react'
+import {Provider} from 'mobx-react'
 
-import feedbackStore from './feedbackStore'
+import FeedbackStore from './FeedbackStore'
 import FeedbackForm from './FeedbackForm'
 
 class App extends Component {
@@ -17,12 +16,12 @@ class App extends Component {
 
   submitForm (event) {
     event.preventDefault()
-    console.log('Sending form', JSON.stringify(feedbackStore, null, 2))
+    console.log('Sending form', JSON.stringify(FeedbackStore, null, 2))
   }
 
   render() {
     return (
-      <Provider feedbackStore={feedbackStore}>
+      <Provider FeedbackStore={FeedbackStore}>
         <div className="container">
           <Header title="Tell us what you think" />
           <FeedbackForm onClick={this.submitForm}/>

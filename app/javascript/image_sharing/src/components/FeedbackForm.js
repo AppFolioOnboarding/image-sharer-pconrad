@@ -1,11 +1,11 @@
 import {observer} from "mobx-react";
 import React from "react";
 import {action} from "mobx";
-import feedbackStore from "./feedbackStore";
+import FeedbackStore from "./FeedbackStore";
 import Input from "./Input";
 import Submit from "./Submit";
 
-@observer(["feedbackStore"])
+@observer(["FeedbackStore"])
 class FeedbackForm extends React.Component {
   constructor (props) {
     super(props);
@@ -15,11 +15,11 @@ class FeedbackForm extends React.Component {
   }
 
   @action onNameChange = (e) => {
-    feedbackStore.name = e.target.value;
+    FeedbackStore.name = e.target.value;
   }
 
   @action onCommentChange = (e) => {
-    feedbackStore.comment = e.target.value;
+    FeedbackStore.comment = e.target.value;
   }
 
   render() {
@@ -29,13 +29,13 @@ class FeedbackForm extends React.Component {
           <Input
             title={'Name'}
             name={'name'}
-            defaultValue={feedbackStore.name}
+            defaultValue={FeedbackStore.name}
             onChange={this.onNameChange}
           />
           <Input
             title={'Comment'}
             name={'comment'}
-            defaultValue={feedbackStore.comment}
+            defaultValue={FeedbackStore.comment}
             onChange={this.onCommentChange}
           />
         </div>

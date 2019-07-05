@@ -6,8 +6,6 @@ class Submit extends React.Component {
     this.state = {
       onClick : props.onClick
     };
-    console.log("Feedback Form Props:")
-    console.log(props)
   }
 
   render() {

@@ -1,7 +1,10 @@
 import React from "react";
-import {inject, observer} from 'mobx-react'
+import { observer } from 'mobx-react'
 
-const Input = observer(["feedbackStore"], (props) => {
+@observer
+export default class Input extends React.Component {
+  render() {
+    const props = this.props;
     return (
       <div className="form-group">
         <label htmlFor={props.name} className="form-label">{props.title}</label>
@@ -16,6 +19,5 @@ const Input = observer(["feedbackStore"], (props) => {
       </div>
     );
   }
-);
+}
 
-export default Input;
