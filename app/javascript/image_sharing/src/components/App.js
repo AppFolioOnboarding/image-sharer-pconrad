@@ -6,6 +6,9 @@ import {Provider} from 'mobx-react'
 
 import FeedbackStore from './FeedbackStore'
 import FeedbackForm from './FeedbackForm'
+// import PostFeedbackService from '../services/PostFeedbackService'
+
+import postFeedback from '../services/PostFeedbackService'
 
 class App extends Component {
 
@@ -15,8 +18,9 @@ class App extends Component {
   }
 
   submitForm (event) {
-    event.preventDefault()
-    console.log('Sending form', JSON.stringify(FeedbackStore, null, 2))
+    event.preventDefault();
+    postFeedback(FeedbackStore);
+    console.log('Sending form', JSON.stringify(FeedbackStore, null, 2));
   }
 
   render() {

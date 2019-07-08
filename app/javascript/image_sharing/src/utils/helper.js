@@ -1,5 +1,8 @@
 import 'whatwg-fetch';
 
+import fetch from 'node-fetch';
+global.fetch = fetch;
+
 const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
